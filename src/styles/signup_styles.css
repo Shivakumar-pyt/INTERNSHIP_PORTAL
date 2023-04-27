@@ -1,0 +1,46 @@
+.signupform{
+    display: flex;
+    gap: 100px;
+}
+
+.signupform-image{
+    width: 45%;
+    margin-top: 6%;
+    margin-left: 2%;
+    height: 40%;
+    /* border: 1px solid black; */
+}
+
+.signupform-container{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 40%;
+    margin-top: 5%;
+    /* border: 1px solid black; */
+}
+
+.signupform-error{
+    font-size: 20px;
+    color: red;
+    font-weight: 500;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.signupform-success{
+    font-size: 20px;
+    color: green;
+    font-weight: 500;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.signupform-button{
+    width: 30%;
+    font-family: 'Quicksand', sans-serif;
+    /* margin-left: 4%; */
+}
+
+.signupform-label{
+    font-size: 18px;
+    font-family: 'Quicksand', sans-serif;
+}
