@@ -3,6 +3,7 @@ import { useState, useEffect, useParams } from "react";
 import { Container, Nav, Navbar, Image, Button, Form } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import signup_image from "../assets/signup_background.png";
+import { useNavigate } from "react-router-dom";
 import "../styles/signup_styles.css";
 
 export default function SignUp(props) {
@@ -16,8 +17,10 @@ export default function SignUp(props) {
     const passwordError = useRef();
     const cpasswordError = useRef();
     const [error, setError] = useState(true);
+    const navigate = useNavigate();
+    const [response,setResponse] = useState("");
 
-    const backend_url = ""
+    const backend_url = "http://localhost:5000/user/register";
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -70,7 +73,25 @@ export default function SignUp(props) {
 
     useEffect(() => {
         if (!error) {
-            console.log("no errors");
+            const currentUsername = username.current.value;
+            const currentEmail = email.current.value;
+            const currentPassword = password.current.value;
+            const currentCollege = college.current.value;
+            const data = { currentUsername, currentEmail, currentPassword, currentCollege };
+            fetch(backend_url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).then((res) => {
+                return res.json();
+            }).then((data) => {
+                setResponse(data.message);
+                setTimeout(() => {
+                    navigate("/login");
+                },800)
+            }).catch((err) => {
+                console.log(err);
+            })
         }
     }, [error])
 
@@ -105,6 +126,7 @@ export default function SignUp(props) {
                     <Form.Text></Form.Text>
                 </Form.Group>
                 <Button className="signupform-button" onClick={handleSubmit}>Submit</Button>
+                <Form.Text>{response}</Form.Text>
             </Form>
         </div>
     )

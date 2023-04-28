@@ -2,11 +2,18 @@ import React from "react";
 import { useState, useEffect, useParams } from "react";
 import { Container, Nav, Navbar, Image, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
+import { loggedOut } from "../redux/userSlice";
 
 export default function Navbar_Func(props) {
     const logState = useSelector((state) => state.isLogged);
     const username = useSelector((state) => state.username);
     const email = useSelector((state) => state.email);
+    const dispatch = useDispatch();
+    const handleLogout = (e) => {
+        e.preventDefault();
+        dispatch(loggedOut())
+    }
+
     return (
         <Container>
             <Navbar bg="light" expand="lg">
@@ -18,7 +25,8 @@ export default function Navbar_Func(props) {
                     <Nav.Link href="/tips">See Tips</Nav.Link>
                     {!logState ? <div><Button><Nav.Link href="/login">Login</Nav.Link></Button>
                         <Button><Nav.Link href="/signup">Sign Up</Nav.Link></Button></div> : <div><Navbar.Text>
-                            {username}</Navbar.Text><Navbar.Text>{email}</Navbar.Text></div>}
+                            {username}</Navbar.Text><Navbar.Text>{email}</Navbar.Text>
+                        <Button onClick={handleLogout}>Logout</Button></div>}
                 </Nav>
             </Navbar>
         </Container>

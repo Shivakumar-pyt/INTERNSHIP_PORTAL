@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+.loginform{
+    height: 50vh;
+}
+
+.loginform-label{
+    font-size: 18px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.loginform-container{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 5%;
+    gap: 40px;
+}
+
+.loginform-button{
+    width: 30%;
+    font-family: 'Quicksand', sans-serif;
+}
+
+.loginform-display{
+    display: flex;
+    /* gap: 40px; */
+}
+
+.loginform-image{
+    margin-top: 5%;
+    width: 50%;
+    margin-left: 5%;
+}
+
+.loginform-error{
+    font-size: 20px;
+    color: red;
+    font-weight: 500;
+    font-family: 'Quicksand', sans-serif;
+    /* margin-left: 60%; */
+}
+
+.loginform-success{
+    font-size: 20px;
+    color: green;
+    font-weight: 500;
+    font-family: 'Quicksand', sans-serif;
+    /* margin-left: 60%; */
+}
