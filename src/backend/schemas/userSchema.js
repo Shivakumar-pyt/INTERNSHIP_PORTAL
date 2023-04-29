@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const mongodb = require('mongodb');
-
-const database_link = "mongodb+srv://shivakumar_ranade:sbr2002%40wt@cluster0.1akbtlo.mongodb.net/?retryWrites=true&w=majority";
+require('dotenv').config({ path: 'config.env' })
+const database_link = process.env.DATABASE_LINK;
 
 mongoose.connect(database_link).then(() => {
     console.log('Database connection successful...');
