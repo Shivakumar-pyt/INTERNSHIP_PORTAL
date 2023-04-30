@@ -3,7 +3,7 @@ const UserExperience = require('../schemas/user_experienceSchema');
 
 const addExperience = ((req, res) => {
     const { username, final_company_name, final_drive, final_compensation, final_description, final_rounds, final_total_students,
-    final_selected_students, final_tips, final_difficulty, selected_skills } = req.body;
+        final_selected_students, final_tips, final_difficulty, selected_skills } = req.body;
     const experience_id = Math.floor(Math.random() * (1000000 - 100000)) + 100000;
     const experience = new ExperienceData({
         experience_id: experience_id,
@@ -22,6 +22,33 @@ const addExperience = ((req, res) => {
     experience.save().then(() => {
         console.log('experience saved...');
     }).catch((err) => console.log(err));
+
+    UserExperience.findOne({ username: username }).then((data) => {
+        if (!data) {
+            const user_experience = new UserExperience({
+                username: username,
+                no_of_experiences: 1,
+                companies: [final_company_name],
+            })
+            user_experience.save().then(() => {
+                console.log('user experience saved...');
+            })
+        }
+        else {
+            if (!data.companies.includes(final_company_name)) {
+                UserExperience.updateOne({ username: username }, { $set: { no_of_experiences: data.no_of_experiences + 1 }, $push: { companies: final_company_name } })
+                    .then(() => {
+                        console.log('updated')
+                    });
+            }
+            else {
+                UserExperience.updateOne({ username: username }, { $set: { no_of_experiences: data.no_of_experiences + 1 } })
+                    .then(() => {
+                        console.log('updated')
+                    });
+            }
+        }
+    })
 
 });
 

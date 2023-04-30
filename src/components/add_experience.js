@@ -30,7 +30,9 @@ export default function AddExperience(props) {
     'data science','machine learning','ai','data analytics', 'powerbi', 'microsoft office','adobe']
 
     const addSkill = (new_skill) => {
-        setSelectedSkills((prev_skills) => [...prev_skills, new_skill])
+        if(!selected_skills.includes(new_skill)) {
+            setSelectedSkills((prev_skills) => [...prev_skills, new_skill])
+        }
     }
 
     const removeSkill = (remove_skill) => {
@@ -124,10 +126,11 @@ export default function AddExperience(props) {
                     <Form.Select ref={drive} aria-label="Default select example">
                         <option>Select company drive</option>
                         <option value="Internship">Internship</option>
-                        <otion value="Placement">Placement</otion>
+                        <option value="Placement">Placement</option>
                     </Form.Select>
                     <Form.Text>{formerrors.driveError}</Form.Text>
                 </Form.Group>
+                <br></br><br></br>
                 <Form.Group>
                     <Form.Label>Compensation offered by company:</Form.Label>
                     <Form.Control ref={compensation} type="text"/>
