@@ -21,6 +21,10 @@ const UserExperienceSchema = new mongoose.Schema({
 
     companies: {
         type: Array,
+    },
+
+    experience_ids: {
+        type: Array,
     }
 })
 

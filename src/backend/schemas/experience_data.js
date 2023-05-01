@@ -15,6 +15,11 @@ const ExperienceDataSchema = new mongoose.Schema({
         unique: true,
     },
 
+    username: {
+        type: String,
+        required: true,
+    },
+
     company_name: {
         type: String,
         required: true,
@@ -33,6 +38,10 @@ const ExperienceDataSchema = new mongoose.Schema({
         type: Number,
     },
 
+    rounds_info: {
+        type: Array,
+    },
+
     selected_count: {
         type: Number,
     },
@@ -49,9 +58,6 @@ const ExperienceDataSchema = new mongoose.Schema({
         type: Array,
     },
 
-    difficulty: {
-        type: String
-    },
 
     tips: {
         type: String,
