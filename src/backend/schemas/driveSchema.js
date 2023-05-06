@@ -8,14 +8,14 @@ mongoose.connect(database_link).then(() => {
 }).catch((err) => console.log(err));
 
 
-const ExperienceDataSchema = new mongoose.Schema({
-    experience_id: {
+const DriveSchema = new mongoose.Schema({
+    drive_id: {
         type: Number,
         required: true,
         unique: true,
     },
 
-    username: {
+    drive_type: {
         type: String,
         required: true,
     },
@@ -25,42 +25,34 @@ const ExperienceDataSchema = new mongoose.Schema({
         required: true,
     },
 
-    drive: {
+    company_description: {
         type: String,
+    },
+
+    pay_per_month: {
+        type: Number,
         required: true,
     },
 
-    compensation: {
-        type: Number,
+    criteria: {
+        type: Object,
+        required: true,
     },
 
-    rounds: {
-        type: Number,
-    },
-
-    rounds_info: {
+    branches: {
         type: Array,
+        required: true,
     },
 
-    selected_count: {
-        type: Number,
+    drive_deadline: {
+        type: Date,
+        required: true,
     },
 
-    total_students: {
-        type: Number,
-    },
-
-    description: {
+    link: {
         type: String,
-    },
-
-    skills: {
-        type: Array,
-    },
-
-    tips: {
-        type: String,
+        required: true,
     }
 })
 
-module.exports = mongoose.model('experience_data',ExperienceDataSchema);
+module.exports = mongoose.model('drive_schema',DriveSchema);

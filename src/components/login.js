@@ -12,6 +12,7 @@ export default function Login(props) {
     const [password, setPassword] = useState("");
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [response,setResponse] = useState("");
+    const [account_type,setAccountType] = useState("");
     const backend_url = 'http://localhost:5000/user/login';
 
     const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export default function Login(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        const data = { username, password };
+        const data = { username, password, account_type };
         fetch(backend_url,{
             method: 'POST',
             headers: { 'Content-Type' : 'application/json' },
@@ -38,7 +39,7 @@ export default function Login(props) {
 
     useEffect(() => {
         if(isAuthenticated) {
-            dispatch(loggedIn({username: username, password: password}));
+            dispatch(loggedIn({username: username, password: password, account_type: account_type}));
             setTimeout(() => {
                 navigate("/");
             },500)
@@ -50,14 +51,23 @@ export default function Login(props) {
             <div className="loginform-display">
                 <Image className="loginform-image" src={login_pic} />
                 <Form className="loginform-container">
+                    {account_type}
                     <Form.Text style={{ marginTop: '1%', fontWeight: 'bold', fontSize: '24px' }}>Login</Form.Text>
                     <Form.Group>
                         <Form.Label className="loginform-label">Username</Form.Label>
-                        <Form.Control value={username} placeholder="Enter Username" onChange={(e) => { setUsername(e.target.value) }} />
+                        <Form.Control value={username} onChange={(e) => { setUsername(e.target.value) }} />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label className="loginform-label">Password</Form.Label>
-                        <Form.Control value={password} placeholder="Enter password" onChange={(e) => { setPassword(e.target.value) }} />
+                        <Form.Control value={password} onChange={(e) => { setPassword(e.target.value) }} />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Select account type: </Form.Label>
+                        <Form.Select onChange={(e) => {setAccountType(e.target.value)}}>
+                            <option>Select account type</option>
+                            <option value="Student">Student</option>
+                            <option value="TNP">TNP</option>
+                        </Form.Select>
                     </Form.Group>
                     <Button className="loginform-button" onClick={handleSubmit}>Submit</Button>
                     <Form.Text>{response}</Form.Text>

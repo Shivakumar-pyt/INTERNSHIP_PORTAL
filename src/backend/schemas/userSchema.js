@@ -27,6 +27,11 @@ const UserSchema = new mongoose.Schema({
 
     college: {
         type: String
+    },
+
+    account_type: {
+        type: String,
+        required: true
     }
 })
 

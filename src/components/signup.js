@@ -18,7 +18,10 @@ export default function SignUp(props) {
     const cpasswordError = useRef();
     const [error, setError] = useState(true);
     const navigate = useNavigate();
-    const [response,setResponse] = useState("");
+    const [response, setResponse] = useState("");
+
+    const accountType = useRef();
+    const account_type_error = useRef();
 
     const backend_url = "http://localhost:5000/user/register";
 
@@ -66,6 +69,14 @@ export default function SignUp(props) {
             cpasswordError.current.innerHTML = "";
         }
 
+        if(accountType.current.value === undefined || accountType.current.value === "Select the account type") {
+            errorCount+=1;
+            account_type_error.current.innerHTML = "Select the account type...";
+        }
+        else{
+            account_type_error.current.innerHTML = "";
+        }
+
         if (errorCount === 0) {
             setError(false);
         }
@@ -77,7 +88,8 @@ export default function SignUp(props) {
             const currentEmail = email.current.value;
             const currentPassword = password.current.value;
             const currentCollege = college.current.value;
-            const data = { currentUsername, currentEmail, currentPassword, currentCollege };
+            const current_account_type = accountType.current.value;
+            const data = { current_account_type, currentUsername, currentEmail, currentPassword, currentCollege };
             fetch(backend_url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -88,7 +100,7 @@ export default function SignUp(props) {
                 setResponse(data.message);
                 setTimeout(() => {
                     navigate("/login");
-                },800)
+                }, 800)
             }).catch((err) => {
                 console.log(err);
             })
@@ -117,13 +129,22 @@ export default function SignUp(props) {
                 </Form.Group>
                 <Form.Group >
                     <Form.Label className="signupform-label">Confirm Password</Form.Label>
-                    <Form.Control ref={cpassword} />
-                    <Form.Text ref={cpasswordError} type="password"></Form.Text>
+                    <Form.Control ref={cpassword}  type="password"/>
+                    <Form.Text ref={cpasswordError}></Form.Text>
                 </Form.Group>
                 <Form.Group >
                     <Form.Label className="signupform-label">College</Form.Label>
                     <Form.Control ref={college} />
                     <Form.Text></Form.Text>
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label>Account Type</Form.Label>
+                    <Form.Select ref={accountType}>
+                        <option>Select the account type</option>
+                        <option value="Student">Student</option>
+                        <option value="TNP">TNP</option>
+                    </Form.Select>
+                    <Form.Text ref={account_type_error}></Form.Text>
                 </Form.Group>
                 <Button className="signupform-button" onClick={handleSubmit}>Submit</Button>
                 <Form.Text>{response}</Form.Text>

@@ -73,21 +73,32 @@ export default function RoundsInfo({ roundsInfoDone, rounds, setRounds, roundsIn
         }
     }
 
+    const handleCancelButton = (e) => {
+        e.preventDefault();
+        setAddClick(false);
+        setRoundType("");
+        setCodingRoundTopics([]);
+        setRoundsInfo([]);
+        setRoundsExpAdded(0);
+    }
+
 
     return (
         <Container>
             <Form>
                 <Form.Group>
                     <Form.Label>No. of interview rounds</Form.Label>
-                    <Form.Control type="text" onChange={(e) => { setRounds(e.target.value) }} />
+                    <Form.Control type="text" onChange={(e) => { setRounds(e.target.value) }} disabled={addClick} />
                     <Form.Text>{formerrors.roundError}</Form.Text>
                 </Form.Group>
-                {rounds !== "" && rounds !== undefined && roundExpAdded < parseInt(rounds) &&
+                {rounds !== "" && rounds !== undefined && parseInt(rounds) > 0 && roundExpAdded < parseInt(rounds) &&
                     <Button onClick={(e) => setAddClick(true)}>Add Interview Experience</Button>
                 }
 
                 {addClick &&
+                
                     <Form.Group>
+                        <Button onClick={(e) => {handleCancelButton(e)}}>Cancel</Button>
                         <Form.Select onChange={(e) => { setRoundType(e.target.value) }}>
                             <option>Select Type of round</option>
                             <option value="Coding Round">Coding Round</option>
@@ -129,7 +140,7 @@ export default function RoundsInfo({ roundsInfoDone, rounds, setRounds, roundsIn
                     </Form.Group>
                 }
 
-                {roundExpAdded === parseInt(rounds) && 
+                {roundExpAdded > 0 && roundExpAdded === parseInt(rounds) && 
                     <div>Experiences of all rounds saved... You may proceed...</div>
                 }
 

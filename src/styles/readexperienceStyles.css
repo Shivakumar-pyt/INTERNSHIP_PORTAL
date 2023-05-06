@@ -1,0 +1,24 @@
+.content-container{
+    display: flex;
+    flex-direction: row;
+    gap: 8rem;
+    margin-left: 4%;
+    margin-top: 4%;
+}
+
+.salaryField{
+    width: 70%;
+}
+
+.data{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+}
+
+.experience-container{
+    padding: 2rem;
+    border: 1px solid black;
+    border-radius: 1rem;
+}
